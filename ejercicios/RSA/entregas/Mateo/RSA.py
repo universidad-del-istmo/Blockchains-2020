@@ -13,6 +13,25 @@ def primesfrom3to(start, n):
             sieve[i*i//2::i] = False
     return 2*numpy.nonzero(sieve)[0][1::]+1
 
+def get_primes(start, stop):
+    #Generar lista de primos
+    if start >= stop:
+        return []
+
+    primes = [2]
+
+    for n in range(3, stop + 1, 2):
+        for p in primes:
+            if n % p == 0:
+                break
+        else:
+            primes.append(n)
+
+    while primes and primes[0] < start:
+        del primes[0]
+
+    return primes
+
 def are_relatively_prime(a, b):
     #Comprovar si son primos relativos
     for n in range(2, min(a, b) + 1):
@@ -33,7 +52,8 @@ def make_key_pair(length):
     start = 1 << (length // 2 - 1)
     stop = 1 << (length // 2 + 1)
     #obtener primos y ponerlos en llista
-    primes= primesfrom3to(start, stop).tolist()
+    #primes= primesfrom3to(start, stop).tolist()
+    primes = get_primes(start, stop)
 
     # Seleccionar 2 primos de la lista
     while primes:
@@ -102,7 +122,7 @@ if __name__ == '__main__':
 
     public, private = make_key_pair(16) #mas de 16 puede causar problemas
     #encryptar numero
-    encrypted_number = public.encrypt(243)
+    encrypted_number = public.encrypt(244)
     print('numero encryptado: ', encrypted_number)
     #desencriptar numero
     decrypted_number = private.decrypt(encrypted_number)
@@ -110,6 +130,7 @@ if __name__ == '__main__':
     #Crear documentos para guardar las llaves
     pub= open("public.txt","w+")
     priv= open("priv.txt","w+")
+    sign= open("sign.txt","w+")
 
     #Guardar llave publica
     pub.write(str(public.e))
@@ -128,16 +149,23 @@ if __name__ == '__main__':
     #Firmaar archivo y provar valides   NO FUNCIONA POR EL TAMANO DE LAS LLAVES
     ffile = 'textDoc.txt'
     hhash = file_hash(ffile)
+    #hash a binario y obtener los ultimos 16 bits para crear la firma de forma que no haga problema por la llave corta (16 bits)
     bhash = bin(int(hhash,16))
     b=bhash[-16:]
+    #b es el hash cotra el que se compara la firma
     print(b)
     b= int(b,2)
     signature = private.decrypt(b)
+    sign.write(str(signature))
+    sign.close()
     print(signature)
     proof = public.encrypt(signature)
     print(proof)
     print(b)
     a=1
+
+
+
     # res = bin(signature)
     # print(res)
     # print('firma en int: ',signature)
