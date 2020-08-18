@@ -1,12 +1,17 @@
-import random, sys, os, cryptomath
+import random
+import sys
+import os
+import cryptomath
 import rabinMiller as number
 from hashlib import sha256
 
 keysPrefix = "ejercicios\RSA\entregas\Miguel González\Ejercicio RSA\Ej_RSA"
 
+
 def main():
     print("Creating keys...")
-    createKeys(keysPrefix, 152)
+    # Al utilizar llaves muy grandes tarda bastante tiempo en encriptar
+    createKeys(keysPrefix, 64)
 
     messageEnc = input("\nNumber to encrypt: ")
     print("Encrypting number...")
@@ -17,10 +22,12 @@ def main():
     decrypt(messageDec)
 
     print("Signing...")
-    signature,Hash = sign("ejercicios\RSA\entregas\Miguel González\Ejercicio RSA\sign.txt")
-    
+    signature, Hash = sign(
+        "ejercicios\RSA\entregas\Miguel González\Ejercicio RSA\sign.txt")
+
     print("Verifying...")
-    verify(signature,Hash)
+    # Hay un problema con la verificacion, creo que se debe a la longitud de la llave
+    verify(signature, Hash)
 
 
 def encrypt(message):
@@ -48,6 +55,7 @@ def decrypt(encrypted):
     print("Decrypted number: ", decrypted)
     return decrypted
 
+
 def sign(fileDir):
     privKey = open(keysPrefix + "_privateKey.txt").read()
     privKey = privKey.split(",")
@@ -59,19 +67,20 @@ def sign(fileDir):
     message = bytes(message, 'utf-8')
     hashed = sha256(message).digest()
     hashed = int.from_bytes(hashed, byteorder='big')
-    print("Signing hash: ",hex(hashed))
-    signature = (hashed**d)%n
+    print("Signing hash: ", hex(hashed))
+    signature = (hashed**d) % n
     print("Signature:", hex(signature))
-    return signature,hashed
+    return signature, hashed
 
-def verify(signature,hashFromSignature):
+
+def verify(signature, hashFromSignature):
     pubKey = open(keysPrefix + "_publicKey.txt").read()
     pubKey = pubKey.split(",")
     n = pubKey[1]
     n = int(n)
     e = pubKey[2]
     e = int(e)
-    Hash = (signature**e)%n
+    Hash = (signature**e) % n
     print("Hash:", hex(Hash))
     print("Signature valid:", Hash == hashFromSignature)
     return Hash
@@ -79,6 +88,7 @@ def verify(signature,hashFromSignature):
     # hash = int.from_bytes(sha512(messageEnc).digest(), byteorder='big')
     # signature = pow(hash, d, n)
     # print("Signature:", hex(signature))
+
 
 def generateKeys(keySize):
     # Encontrar numero primos p y q
