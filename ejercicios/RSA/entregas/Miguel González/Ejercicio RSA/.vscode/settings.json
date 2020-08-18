@@ -1,4 +1,0 @@
-{
-    "python.formatting.provider": "black",
-    "python.pythonPath": "/home/mg/miniconda3/envs/blockchain/bin/python"
-}
