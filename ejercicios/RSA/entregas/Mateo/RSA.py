@@ -121,8 +121,10 @@ class PrivateKey(namedtuple('PrivateKey', 'n d')):
 if __name__ == '__main__':
 
     public, private = make_key_pair(16) #mas de 16 puede causar problemas
+    number=244
+    print('Numero a encriptar: ',number)
     #encryptar numero
-    encrypted_number = public.encrypt(244)
+    encrypted_number = public.encrypt(number)
     print('numero encryptado: ', encrypted_number)
     #desencriptar numero
     decrypted_number = private.decrypt(encrypted_number)
@@ -130,7 +132,7 @@ if __name__ == '__main__':
     #Crear documentos para guardar las llaves
     pub= open("public.txt","w+")
     priv= open("priv.txt","w+")
-    sign= open("sign.txt","w+")
+    #sign= open("sign.txt","w+")
 
     #Guardar llave publica
     pub.write(str(public.e))
@@ -146,32 +148,19 @@ if __name__ == '__main__':
     priv.write("\n")
     priv.close()
 
-    #Firmaar archivo y provar valides   NO FUNCIONA POR EL TAMANO DE LAS LLAVES
-    ffile = 'textDoc.txt'
-    hhash = file_hash(ffile)
-    #hash a binario y obtener los ultimos 16 bits para crear la firma de forma que no haga problema por la llave corta (16 bits)
-    bhash = bin(int(hhash,16))
-    b=bhash[-16:]
-    #b es el hash cotra el que se compara la firma
-    print(b)
-    b= int(b,2)
-    signature = private.decrypt(b)
-    sign.write(str(signature))
-    sign.close()
-    print(signature)
-    proof = public.encrypt(signature)
-    print(proof)
-    print(b)
-    a=1
-
-
-
-    # res = bin(signature)
-    # print(res)
-    # print('firma en int: ',signature)
-    # print('Firma en Hex: ',hex(signature))
-    # hash_signature = public.encrypt(signature)
-    # print('Firma decriptada: ', hash_signature)
-    # print('Firma decriptada hex: ', hex(hash_signature))
-
-    #sig = sign_file(ffile, public.e, private.n)
+    # #Firmar archivo y provar valides funciona con llaves de 16
+    # ffile = 'textDoc.txt'
+    # hhash = file_hash(ffile)
+    # #hash a binario y obtener los ultimos 16 bits para crear la firma de forma que no haga problema por la llave corta (16 bits)
+    # bhash = bin(int(hhash,16))
+    # b=bhash[-16:]
+    # #b es el hash cotra el que se compara la firma
+    # print(b)
+    # b= int(b,2)
+    # signature = private.decrypt(b)
+    # sign.write(str(signature))
+    # sign.close()
+    # print(signature)
+    # proof = public.encrypt(signature)
+    # print(proof)
+    # print(b)
