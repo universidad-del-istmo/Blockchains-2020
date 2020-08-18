@@ -2,7 +2,7 @@ import random, sys, os, cryptomath
 import rabinMiller as number
 from hashlib import sha256
 
-keysPrefix = "Ej_RSA"
+keysPrefix = "ejercicios\RSA\entregas\Miguel González\Ejercicio RSA\Ej_RSA"
 
 def main():
     print("Creating keys...")
@@ -17,7 +17,7 @@ def main():
     decrypt(messageDec)
 
     print("Signing...")
-    signature,Hash = sign("sign.txt")
+    signature,Hash = sign("ejercicios\RSA\entregas\Miguel González\Ejercicio RSA\sign.txt")
     
     print("Verifying...")
     verify(signature,Hash)
