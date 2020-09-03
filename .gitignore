@@ -1,2 +1,4 @@
 node_modules
 build
+.vscode
+ejercicios/RSA/entregas/Miguel González/Ejercicio RSA/__pycache__/
