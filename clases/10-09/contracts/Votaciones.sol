@@ -23,4 +23,8 @@ contract Votaciones {
         _votos[msg.sender] = candidato;
         _conteo[candidato] = _conteo[candidato] + 1;
     }
+
+    function pagar(address payable dest) public payable {
+        dest.transfer(50 ether);
+    }
 }
