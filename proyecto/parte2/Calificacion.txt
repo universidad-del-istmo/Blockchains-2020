@@ -1,0 +1,6 @@
+* El seller puede aceptar sin que el buyer haya hecho reserve
+* Si el buyer hace reserve, sus fondos no pueden ser liberados al menos que el seller
+  haga accept
+* Seller no puede rechazar
+* El precio del producto solo puede ser 35 ehter
+* buyerReserve no toma en cuenta la cantidad de productos solicitada
