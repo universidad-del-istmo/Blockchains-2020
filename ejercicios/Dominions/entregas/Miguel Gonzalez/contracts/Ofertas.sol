@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MG
-pragma solidity >=0.5.16 <0.8.0;
+pragma solidity >=0.5.16 < 0.8.0;
 
 contract Ofertas {
     address payable _postor;
@@ -21,5 +21,4 @@ contract Ofertas {
         require(msg.sender == _postor,"You're not the postor");
         _postor.transfer(address(this).balance);
     }
-
 }
