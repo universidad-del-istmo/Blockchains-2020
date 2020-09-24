@@ -40,7 +40,6 @@ contract Registros {
         address ofertaDir;
         address payable ofertaDirPayble;
         require(_registros[ip] != address(0), "Esta IP esta libre");
-        //_ofertas[ip] = postor;
         Ofertas oferta = new Ofertas(ip, domainName, postor,owner);
         ofertaDir = address(oferta);
         ofertaDirPayble = address(uint160(ofertaDir));
