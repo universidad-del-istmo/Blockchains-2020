@@ -22,8 +22,7 @@ contract Registros {
     }
 
     function agregarRegistro(string memory ip, string memory domainName)
-        external payable
-    {
+        external payable {
         address postor = msg.sender;
         require(
             _registros[ip] == address(0),
