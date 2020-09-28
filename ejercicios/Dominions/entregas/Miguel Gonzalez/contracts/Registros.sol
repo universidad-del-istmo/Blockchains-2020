@@ -40,14 +40,12 @@ contract Registros {
     function ofertarIp(string memory ip,string memory domainName) external payable {
         address postor = msg.sender;
         address owner = _registros[domainName];
-        address ofertaDir;
-        address payable ofertaDirPayble;
+        address payable ofertaDir;
 
         require(_registros[domainName] != address(0), "Esta IP esta libre");
         Ofertas oferta = new Ofertas(domainName, ip, postor,owner,address(this));
-        ofertaDir = address(oferta);
-        ofertaDirPayble = address(uint160(ofertaDir));
-        ofertaDirPayble.transfer(msg.value);
+        ofertaDir = payable(address(oferta));
+        ofertaDir.transfer(msg.value);
         emit Oferta(domainName, ofertaDir);
     }
 }

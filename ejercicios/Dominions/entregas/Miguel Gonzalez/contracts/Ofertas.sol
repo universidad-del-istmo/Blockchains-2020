@@ -10,16 +10,17 @@ contract Ofertas {
     // agregar address de registros
 
     constructor(string memory domainName, string memory ip, address postor,address owner, address originContract) payable{
-        _postor = address(uint160(postor));
+        _postor = payable(postor);
         _ip = ip;
         _originContract = originContract;
         _domainName = domainName;
-        _owner = address(uint160(owner));
+        _owner = payable(owner);
     }
     function acceptOffer() public{
         require(msg.sender == _owner,"You're not the owner");
-        _originContract.updateRegister();
-        
+        bytes memory payload = abi.encodeWithSignature("updateRegister(string,string,address,address)",_domainName,_ip,_owner,_postor);
+        (bool success,) = _originContract.call(payload);
+        require(success);
         selfdestruct(_owner);
         //_owner.transfer(address(this).balance);
     }
