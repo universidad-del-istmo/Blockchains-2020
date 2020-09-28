@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MG
-pragma solidity >=0.5.16 < 0.8.0;
+pragma solidity >=0.6.0 < 0.8.0;
 
 contract Ofertas {
     address payable _postor;

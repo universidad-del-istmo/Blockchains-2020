@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MG
-pragma solidity >=0.5.16 < 0.8.0;
+pragma solidity >=0.6.0 < 0.8.0;
 
-import "ejercicios/Dominions/entregas/Miguel Gonzalez/contracts/Ofertas.sol";
+import "/home/mg/Blockchains-2020/ejercicios/Dominions/entregas/Miguel Gonzalez/contracts/Ofertas.sol";
 
 contract Registros {
     // nombre del dominio => address propietario
@@ -22,6 +22,7 @@ contract Registros {
         require(_registros[domainName]==owner,"You are not the owner anymore");
         _registros[domainName] = newOwner;
         _ips[domainName] = ip;
+        emit Registro(domainName, ip);
     }
 
     function agregarRegistro(string memory domainName, string memory ip) external payable {
