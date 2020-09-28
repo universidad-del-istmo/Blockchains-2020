@@ -6,10 +6,13 @@ contract Ofertas {
     address payable _owner;
     string _ip;
     string _domainName;
+    address _originContract;
+    // agregar address de registros
 
-    constructor(string memory ip, string memory domainName, address postor,address owner) payable{
+    constructor(string memory domainName, string memory ip, address postor,address owner, address originContract) payable{
         _postor = address(uint160(postor));
         _ip = ip;
+        _originContract = originContract;
         _domainName = domainName;
         _owner = address(uint160(owner));
     }
