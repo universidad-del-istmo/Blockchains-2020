@@ -18,10 +18,14 @@ contract Ofertas {
     }
     function acceptOffer() public{
         require(msg.sender == _owner,"You're not the owner");
-        _owner.transfer(address(this).balance);
+        _originContract.updateRegister();
+        
+        selfdestruct(_owner);
+        //_owner.transfer(address(this).balance);
     }
     function cancelOffer() public{
         require(msg.sender == _postor,"You're not the postor");
-        _postor.transfer(address(this).balance);
+        selfdestruct(_postor);
+        //_postor.transfer(address(this).balance);
     }
 }
