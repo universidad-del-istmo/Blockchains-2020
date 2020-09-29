@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MG
 pragma solidity >=0.6.0 < 0.8.0;
 
-import "Dominios/Ofertas.sol";
+import "./Ofertas.sol";
 
 contract Registros {
     // nombre del dominio => address propietario

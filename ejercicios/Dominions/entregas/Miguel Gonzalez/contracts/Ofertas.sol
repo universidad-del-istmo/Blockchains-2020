@@ -10,11 +10,8 @@ contract Ofertas {
     // agregar address de registros
     
     fallback() external payable { 
-        
-        
     }
     receive() external payable{
-        
     }
 
     constructor(string memory domainName, string memory ip, address postor,address owner, address originContract) payable{
