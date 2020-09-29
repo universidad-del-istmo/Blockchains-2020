@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MG
 pragma solidity >=0.6.0 < 0.8.0;
 
-import "./Ofertas.sol";
+//import "Dominios/Ofertas.sol";
 
 contract Registros {
     // nombre del dominio => address propietario
@@ -38,15 +38,54 @@ contract Registros {
         emit Registro(domainName, ip);
     }
 
-    function ofertarDominio(string calldata domainName,string calldata ip) external payable {
+    function ofertarDominio(string calldata domainName,string calldata ip) external payable returns (Ofertas){
         address postor = msg.sender;
         address owner = _registros[domainName];
         address payable ofertaDir;
 
         require(_registros[domainName] != address(0), "Esta IP esta libre");
-        Ofertas oferta = new Ofertas(domainName, ip, postor,owner,address(this));
+        Ofertas oferta = new Ofertas(domainName, ip, postor,owner,this);
         ofertaDir = payable(address(oferta));
         ofertaDir.transfer(msg.value);
         emit Oferta(domainName, address(oferta));
+        return oferta;
+    }
+}
+
+contract Ofertas {
+    address payable _postor;
+    address payable _owner;
+    string _ip;
+    string _domainName;
+    Registros _originContract;
+    
+    fallback() external payable { 
+        
+        
+    }
+    receive() external payable{
+        
+    }
+
+    constructor(string memory domainName, string memory ip, address postor,address owner, Registros originContract) payable{
+        _postor = payable(postor);
+        _owner = payable(owner);
+        _ip = ip;
+        _originContract = originContract;
+        _domainName = domainName;
+    }
+    function acceptOffer() public{
+        require(msg.sender == _owner,"You're not the owner");
+        //bytes memory payload = abi.encodeWithSignature("updateRegister(string,string,address,address)",_domainName,_ip,_owner,_postor);
+        _originContract.updateRegister(_domainName,_ip,_owner,_postor);
+        //(bool success,) = _originContract.call(payload);
+        //require(success);
+        selfdestruct(_owner);
+        //_owner.transfer(address(this).balance);
+    }
+    function cancelOffer() public{
+        require(msg.sender == _postor,"You're not the postor");
+        selfdestruct(_postor);
+        //_postor.transfer(address(this).balance);
     }
 }
