@@ -8,13 +8,22 @@ contract Ofertas {
     string _domainName;
     address _originContract;
     // agregar address de registros
+    
+    fallback() external payable { 
+        
+        
+    }
+    receive() external payable{
+        
+    }
 
     constructor(string memory domainName, string memory ip, address postor,address owner, address originContract) payable{
         _postor = payable(postor);
+        _owner = payable(owner);
         _ip = ip;
         _originContract = originContract;
         _domainName = domainName;
-        _owner = payable(owner);
+        //payable(address(this)).transfer(msg.value);
     }
     function acceptOffer() public{
         require(msg.sender == _owner,"You're not the owner");

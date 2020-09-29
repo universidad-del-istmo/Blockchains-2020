@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MG
 pragma solidity >=0.6.0 < 0.8.0;
 
-import "/home/mg/Blockchains-2020/ejercicios/Dominions/entregas/Miguel Gonzalez/contracts/Ofertas.sol";
+import "Dominios/Ofertas.sol";
 
 contract Registros {
     // nombre del dominio => address propietario
@@ -14,18 +14,18 @@ contract Registros {
     event Registro(string domainName, string ip);
     event Oferta(string domainName,address ofertaAddress);
 
-    constructor(address payable admin) {
+    constructor(address payable admin) payable {
         _admin = admin;
     }
 
-    function updateRegister(string memory domainName, string memory ip, address owner,address newOwner) external{
+    function updateRegister(string calldata domainName, string calldata ip, address owner,address newOwner) external {
         require(_registros[domainName]==owner,"You are not the owner anymore");
         _registros[domainName] = newOwner;
         _ips[domainName] = ip;
         emit Registro(domainName, ip);
     }
 
-    function agregarRegistro(string memory domainName, string memory ip) external payable {
+    function agregarRegistro(string calldata domainName, string calldata ip) external payable {
         address postor = msg.sender;
 
         require(
@@ -38,7 +38,7 @@ contract Registros {
         emit Registro(domainName, ip);
     }
 
-    function ofertarIp(string memory ip,string memory domainName) external payable {
+    function ofertarDominio(string calldata domainName,string calldata ip) external payable {
         address postor = msg.sender;
         address owner = _registros[domainName];
         address payable ofertaDir;
@@ -47,6 +47,6 @@ contract Registros {
         Ofertas oferta = new Ofertas(domainName, ip, postor,owner,address(this));
         ofertaDir = payable(address(oferta));
         ofertaDir.transfer(msg.value);
-        emit Oferta(domainName, ofertaDir);
+        emit Oferta(domainName, address(oferta));
     }
 }
