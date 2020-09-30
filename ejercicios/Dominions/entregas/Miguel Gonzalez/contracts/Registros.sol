@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MG
 pragma solidity >=0.6.0 < 0.8.0;
 
-//import "Dominios/Ofertas.sol";
-
 contract Registros {
     // nombre del dominio => address propietario
     mapping(string => address) _registros;
@@ -60,11 +58,8 @@ contract Ofertas {
     Registros _originContract;
     
     fallback() external payable { 
-        
-        
     }
     receive() external payable{
-        
     }
 
     constructor(string memory domainName, string memory ip, address postor,address owner, Registros originContract) payable{
@@ -76,16 +71,11 @@ contract Ofertas {
     }
     function acceptOffer() public{
         require(msg.sender == _owner,"You're not the owner");
-        //bytes memory payload = abi.encodeWithSignature("updateRegister(string,string,address,address)",_domainName,_ip,_owner,_postor);
         _originContract.updateRegister(_domainName,_ip,_owner,_postor);
-        //(bool success,) = _originContract.call(payload);
-        //require(success);
         selfdestruct(_owner);
-        //_owner.transfer(address(this).balance);
     }
     function cancelOffer() public{
         require(msg.sender == _postor,"You're not the postor");
         selfdestruct(_postor);
-        //_postor.transfer(address(this).balance);
     }
 }
