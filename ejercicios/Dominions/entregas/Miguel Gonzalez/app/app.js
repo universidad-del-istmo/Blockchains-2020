@@ -3,8 +3,8 @@ $(document).ready(function () {
   const registros = new web3.eth.Contract(registrosABI);
   registros.options.address = "0x87D98eDedA9DA254c99db7737dA62eb0ad4c5385";
   var registroEvent = registros.events.Registro({ fromBlock: 0 });
-  //$('#hello').append('<p> Registros:' + registroEvent.event + ', ' + registroEvent.address +', ' + registroEvent.returnValues["domainName"] +', ' + registroEvent.returnValues["ip"]+'</p>');
-  $('#hello').append('<p> Registros:' + registroEvent.event + ', ' + registroEvent.address +', ' + registroEvent.returnValues+'</p>');
+  //$('#registros').append('<p> Registros:' + registroEvent.event + ', ' + registroEvent.address +', ' + registroEvent.returnValues["domainName"] +', ' + registroEvent.returnValues["ip"]+'</p>');
+  $('#registros').append('<p> Registros:' + registroEvent.event + ', ' + registroEvent.address +', ' + registroEvent.returnValues+'</p>');
   
 });
 const registrosABI = [
