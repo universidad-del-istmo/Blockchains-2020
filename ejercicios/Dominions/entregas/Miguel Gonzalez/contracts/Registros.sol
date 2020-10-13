@@ -30,6 +30,7 @@ contract Registros {
             _registros[domainName] == address(0),
             "Esta IP esta ocupada, puedes colocar una oferta"
         );
+        require(msg.value==1,"Thats not the price to register a domain");
         _registros[domainName] = postor;
         _ips[domainName] = ip;
         _admin.transfer(msg.value);

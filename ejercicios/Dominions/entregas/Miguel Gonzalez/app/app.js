@@ -1,12 +1,31 @@
 $(document).ready(function () {
-  const web3 = new Web3("http://localhost:8545");
+  var regList = {};
+  const web3 = new Web3("ws://127.0.0.1:8545");
   const registros = new web3.eth.Contract(registrosABI);
-  registros.options.address = "0x87D98eDedA9DA254c99db7737dA62eb0ad4c5385";
-  var registroEvent = registros.events.Registro({ fromBlock: 0 });
-  //$('#registros').append('<p> Registros:' + registroEvent.event + ', ' + registroEvent.address +', ' + registroEvent.returnValues["domainName"] +', ' + registroEvent.returnValues["ip"]+'</p>');
-  $('#registros').append('<p> Registros:' + registroEvent.event + ', ' + registroEvent.address +', ' + registroEvent.returnValues+'</p>');
-  
+  registros.options.address = "0xC7807349318e008ce288a5fab7D0fc1B06b6bB7c";
+  var registroEvent = registros.events.Registro({ fromBlock: 0 }, function (
+    error,
+    event
+  ) {
+    console.log(error, event);
+    regList[event.returnValues.domainName] = event.returnValues.ip;
+    console.log(regList);
+    var allRegistros = "";
+    for (var registro in regList) {
+      allRegistros =
+        allRegistros + "<p>" + regList[registro] + "\t\t" + registro + "\n</p>";
+    }
+    document.getElementById("registros").innerHTML = allRegistros;
+  });
 });
+function save() {
+  var userInput = document.getElementById("registros").innerHTML;
+  var ret = "data-123".replace(/data-/g,'');
+  userInput = userInput.replace(/<p>/g,'');
+  userInput = userInput.replace(/<\/p>/g,'');
+  var blob = new Blob([userInput], { type: "text/plain;charset=utf-8" });
+  saveAs(blob, "hosts.txt");
+}
 const registrosABI = [
   {
     inputs: [
