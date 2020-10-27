@@ -1,0 +1,17 @@
+.container{
+    margin-top: 1rem;
+}
+.darkArea{
+    background-color: lightgray;
+    border-radius: .3rem;
+    margin-bottom: 1rem;
+}
+
+.main{
+    min-height: 90vh;
+    align-items: center!important;
+    display: flex!important;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
