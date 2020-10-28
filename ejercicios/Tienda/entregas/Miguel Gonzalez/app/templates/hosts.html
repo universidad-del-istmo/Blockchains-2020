@@ -29,11 +29,11 @@
                                 </tr>
                                 </thead>
                                 <tbody id="registros">
-                                    {% if not content %}
+                                    {% if not content[0] %}
                                     <tr><td>None</td><td>Found</td></tr>
                                     {% endif %}
                                     {% if action %}
-                                        {% for event in content %}
+                                        {% for event in content[0] %}
                                         <tr>
                                             <td>{{event[0]['args']['domainName']}} </td>
                                             <td>{{event[0]['args']['ip']}}</td>
@@ -47,14 +47,14 @@
                                         </tr>
                                         {% endfor %}
                                     {% else %}
-                                        {% for event in content %}
+                                        {% for event in content[0] %}
                                         <tr><td>{{event['args']['domainName']}} </td><td>{{event['args']['ip']}}</td></tr>
                                         {% endfor %}
                                     {% endif %}
                                     
                                 </tbody>
                             </table>
-                            {% if dataOf %}
+                            {% if content[1] %}
                             <h2 class="login-heading">Offers</h2>
                             <table class="table table-dark">
                                 <thead>
@@ -64,7 +64,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {% for event in dataOf %}
+                                    {% for event in content[1] %}
                                     <tr><td>{{event['args']['domainName']}} </td><td>{{event['args']['ofertaAddress']}}</td></tr>
                                     {% endfor %}
                                 </tbody>
