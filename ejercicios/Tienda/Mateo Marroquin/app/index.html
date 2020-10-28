@@ -610,14 +610,19 @@
 
             EthereumSessionTruffle.setProvider(provider);
             var esTruffleInstance = null;
+			var ipp;
             EthereumSessionTruffle.at("0x24Cb2c350C9Ed370FE2c04b70E2dd143CeF70945").then(instance => {
                 esTruffleInstance = instance;
                 console.log(instance);
                 return instance.checkDups(dominio, {from: "0xA3133a64ad5f04517cB8aB986e76dce218491f60"});
             }).then(function() {
+                return esTruffleInstance.retIp(dominio);
+            }).then(result => { 
+				ipp = result;
+			 }).then(function() {
                 return esTruffleInstance.checkDups(dominio);
             }).then(result => { if (result) {
-				alert('El dominio ' + dominio +' esta ocupado \nPuede proceder a realizar una puja al dueno actual en "Pujas -> Crear"')
+				alert('El dominio ' + dominio +' esta ocupado \nPuede proceder a realizar una puja al dueno actual en "Pujas -> Crear"\nIP actual del dominio: ' + ipp)
 			} else {
 				alert('El dominio ' + dominio +' esta libre \nPuede proceder a realizar una puja al ente regulador en "Pujas -> Crear"')
 			}; });
