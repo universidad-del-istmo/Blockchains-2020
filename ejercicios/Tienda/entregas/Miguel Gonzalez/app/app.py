@@ -4,6 +4,11 @@ from web3 import Web3
 from flask import Flask, render_template, request,redirect,url_for
 
 app = Flask(__name__)
+# w3 and contract variables
+bchainAddress = "ws://127.0.0.1:8545"
+w3 = Web3(Web3.WebsocketProvider(bchainAddress))
+w3.eth.defaultAccount = w3.eth.accounts[0]
+addressRegistro = "0x835326193D82DF8dE3B059f2C533f41B2306f064"
 # Contract abi
 abiRegistro = [
         {
@@ -90,10 +95,6 @@ abiRegistro = [
             "type": "function",
         },
     ]
-# w3 and contract variables
-w3 = Web3(Web3.WebsocketProvider("ws://127.0.0.1:8545"))
-w3.eth.defaultAccount = w3.eth.accounts[0]
-addressRegistro = "0xba51fF67b9089a3Fef592d44ffD4E93Cd209309F"
 registroContract = w3.eth.contract(address=addressRegistro, abi=abiRegistro)
 
 @app.route("/home",methods=['GET','POST']) 
