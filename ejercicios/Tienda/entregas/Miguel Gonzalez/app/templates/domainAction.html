@@ -17,6 +17,18 @@
                                 <h2 class="login-heading">Buy A Domain Name</h2>
                             {% endif %}
                             <form action="/dnCTRL" method="POST">
+                                <label>Only for testing:</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <label class="input-group-text" for="account">Accounts</label>
+                                    </div>
+                                    <select class="custom-select" id="account" name="account">
+                                      <option selected>Address...</option>
+                                      {% for account in accounts %}
+                                        <option value={{account[0]}}>{{account[1]}}</option>
+                                      {% endfor %}
+                                    </select>
+                                  </div>
                                 <div class="form-group">
                                     <label for="domainName">Domain Name</label>
                                     <input type="text" class="form-control" id="domainName" name="domainName" value="{{data[0]}}" readonly>

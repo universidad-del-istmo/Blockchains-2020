@@ -101,6 +101,7 @@ for event in events:
 #var = myContract.functions.ofertarDominio("hola","122.222.2").transact({'from': w3.eth.accounts[3],'value': 200})
 #receipt = w3.eth.getTransactionReceipt(var)
 #events = myContract.events.Oferta().processReceipt(receipt)
+accounts = w3.eth.accounts
 eventsFilter = myContract.events.Oferta.createFilter(fromBlock="0x0")
 events = eventsFilter.get_all_entries()
 var = events

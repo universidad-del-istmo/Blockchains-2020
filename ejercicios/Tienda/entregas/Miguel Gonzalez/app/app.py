@@ -1,3 +1,4 @@
+from eth_account import account
 from flask.wrappers import Request
 from web3 import Web3
 from flask import Flask, render_template, request,redirect,url_for
@@ -134,16 +135,23 @@ def main():
 @app.route("/dnCTRL",methods=['GET','POST'])
 def purchase():
     if request.method == 'GET':
+        accountsTemp = w3.eth.accounts
+        accounts = []
+        i = 0
+        for account in accountsTemp:
+            accounts.append([i,account])
+            i = i + 1
         if request.args.get('action') == 'o':
             data = [request.args.get('domainName')]
-            return render_template("domainAction.html",title="Offer",data=data,action=True)
+            return render_template("domainAction.html",title="Offer",data=data,action=True,accounts=accounts)
         if request.args.get('action') == 'p':
             data = [request.args.get('domainName')]
-            return render_template("domainAction.html",title="Purchase",data=data,action=False)
+            return render_template("domainAction.html",title="Purchase",data=data,action=False,accounts=accounts)
         else:
             return render_template("search.html")
     if request.method == 'POST':
         # Common parammeters
+        accountNum = int(request.form['account'])
         domainName = request.form['domainName']
         ip = request.form['ip']
         offer = request.form['offer']
@@ -151,14 +159,14 @@ def purchase():
         # Purchase
         if action == "p":
             try:
-                registroContract.functions.agregarRegistro(domainName,ip).transact({'from': w3.eth.accounts[1],'value': offer})
+                registroContract.functions.agregarRegistro(domainName,ip).transact({'from': w3.eth.accounts[accountNum],'value': offer})
                 return redirect("/home?stat=1")
             except:
                 return redirect("/home?stat=0")    
         # Offer
         if action == "o":
             try:
-                registroContract.functions.ofertarDominio(domainName,ip).transact({'from': w3.eth.accounts[1],'value': offer})
+                registroContract.functions.ofertarDominio(domainName,ip).transact({'from': w3.eth.accounts[accountNum],'value': offer})
                 return redirect("/home?stat=1")
             except:
                 return redirect("/home?stat=0")   
