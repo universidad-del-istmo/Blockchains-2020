@@ -104,8 +104,9 @@ def main():
     ofertas = ofertasFilter.get_all_entries()
     # Cargar el sitio con el listado de dominios
     if request.method == 'GET':
-        data = [events,ofertas]
-        return render_template("hosts.html", content=data, title="Hosts",action=False)
+        data = events
+        dataOfertas = ofertas
+        return render_template("hosts.html", content=data,dataOf=dataOfertas, title="Hosts",action=False)
     # Realizar la busqueda del dominio
     if request.method == 'POST':
         data = []
