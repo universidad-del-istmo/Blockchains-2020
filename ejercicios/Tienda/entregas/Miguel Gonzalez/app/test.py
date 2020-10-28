@@ -1,7 +1,7 @@
 from web3 import Web3
 w3 = Web3(Web3.WebsocketProvider("ws://127.0.0.1:8545"))
 w3.eth.defaultAccount = w3.eth.accounts[0]
-contract_address = "0x0ad94FA2C4665b96ac132dB5B29d6d56d57b7eCb"
+contract_address = "0xba51fF67b9089a3Fef592d44ffD4E93Cd209309F"
 contract_abi = [
     {
         "inputs": [
@@ -98,5 +98,9 @@ for event in events:
         data.append([event,"Puja"])
     else:
         data.append([event,"Disponible"])
-var = events[0]['args']
-event = [[1111,"hola"],[2222,"adios"]]
+#var = myContract.functions.ofertarDominio("hola","122.222.2").transact({'from': w3.eth.accounts[3],'value': 200})
+#receipt = w3.eth.getTransactionReceipt(var)
+#events = myContract.events.Oferta().processReceipt(receipt)
+eventsFilter = myContract.events.Oferta.createFilter(fromBlock="0x0")
+events = eventsFilter.get_all_entries()
+var = events

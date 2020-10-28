@@ -30,7 +30,7 @@
                                 </thead>
                                 <tbody id="registros">
                                     {% if action %}
-                                        {% for event in content %}
+                                        {% for event in content[0] %}
                                         <tr>
                                             <td>{{event[0]['args']['domainName']}} </td>
                                             <td>{{event[0]['args']['ip']}}</td>
@@ -44,7 +44,7 @@
                                         </tr>
                                         {% endfor %}
                                     {% else %}
-                                        {% for event in content %}
+                                        {% for event in content[0] %}
                                         <tr><td>{{event['args']['domainName']}} </td><td>{{event['args']['ip']}}</td></tr>
                                         {% endfor %}
                                     {% endif %}

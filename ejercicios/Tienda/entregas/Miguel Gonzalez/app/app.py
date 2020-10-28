@@ -95,14 +95,16 @@ w3.eth.defaultAccount = w3.eth.accounts[0]
 addressRegistro = "0xba51fF67b9089a3Fef592d44ffD4E93Cd209309F"
 registroContract = w3.eth.contract(address=addressRegistro, abi=abiRegistro)
 
-
-@app.route("/hosts",methods=['GET','POST'])  # at the end point /
+@app.route("/home",methods=['GET','POST']) 
+@app.route("/hosts",methods=['GET','POST']) 
 def main():
     eventsFilter = registroContract.events.Registro.createFilter(fromBlock="0x0")
     events = eventsFilter.get_all_entries()
+    ofertasFilter = registroContract.events.Oferta.createFilter(fromBlock="0x0")
+    ofertas = ofertasFilter.get_all_entries()
     # Cargar el sitio con el listado de dominios
     if request.method == 'GET':
-        data = events
+        data = [events,ofertas]
         return render_template("hosts.html", content=data, title="Hosts",action=False)
     # Realizar la busqueda del dominio
     if request.method == 'POST':
@@ -142,10 +144,26 @@ def purchase():
         domainName = request.form['domainName']
         ip = request.form['ip']
         offer = request.form['offer']
-        data = [domainName,ip,offer]
-        return render_template("test.html",data=data)
+        action = request.form['action']
+        # Purchase
+        if action == "p":
+            try:
+                registroContract.functions.agregarRegistro(domainName,ip).transact({'from': w3.eth.accounts[1],'value': offer})
+                return redirect("/home?stat=1")
+            except:
+                return redirect("/home?stat=0")    
+        # Offer
+        if action == "o":
+            try:
+                registroContract.functions.ofertarDominio(domainName,ip).transact({'from': w3.eth.accounts[1],'value': offer})
+                return redirect("/home?stat=1")
+            except:
+                return redirect("/home?stat=0")   
+        else:
+            return redirect("/home?stat=0")    
+            #return render_template("test.html",data=action)
     else:
-        return render_template("search.html")
+        return redirect("/home?stat=0")
 
 @app.route("/test")
 def test():

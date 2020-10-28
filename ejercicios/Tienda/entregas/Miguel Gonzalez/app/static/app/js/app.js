@@ -1,3 +1,15 @@
+$(document).ready(function () {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const stat = urlParams.get('stat')
+  if (stat == 1) {
+    alert("Success!");
+  }
+  else if(stat == 0) {
+    alert("Something went wrong!");
+  }
+  
+});
 function save() {
   var userInput = document.getElementById("registros").innerHTML;
   userInput = userInput.trim();
