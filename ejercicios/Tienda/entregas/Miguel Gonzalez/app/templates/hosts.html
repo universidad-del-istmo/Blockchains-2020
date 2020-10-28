@@ -36,9 +36,9 @@
                                             <td>{{event[0]['args']['ip']}}</td>
                                             <td>
                                                 {% if event[1] == "A" %}
-                                                <a class="btn btn-primary btn-sm" href="#"> Comprar </a>
+                                                <a class="btn btn-primary btn-sm" href="/dnCTRL?action=p&domainName={{event[0]['args']['domainName']}}"> Purchase </a>
                                                 {% else %}
-                                                <a class="btn btn-primary btn-sm" href="#"> Ofertar </a>
+                                                <a class="btn btn-primary btn-sm" href="/dnCTRL?action=o&domainName={{event[0]['args']['domainName']}}"> Offer </a>
                                                 {% endif %}
                                             </td>
                                         </tr>

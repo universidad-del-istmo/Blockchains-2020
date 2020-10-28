@@ -11,12 +11,23 @@
                 <div class="container">
                     <div class="align-items-center">
                         <div class="container">
+                            {{data}}
                             {% if action %}
                                 <h2 class="login-heading">Make An Offer</h2>
                             {% else %}
                                 <h2 class="login-heading">Buy A Domain Name</h2>
                             {% endif %}
-                            
+                            <form>
+                                <div class="form-group">
+                                    <label for="domainName">DomainName</label>
+                                    <input type="text" class="form-control" id="domainName" aria-describedby="emailHelp" name="domainName" placeholder="{{data[0]}}" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ip">IP</label>
+                                    <input type="text" class="form-control" id="ip" placeholder="IP">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Purchase</button>
+                            </form>
                         </div>
                     </div>
                 </div>

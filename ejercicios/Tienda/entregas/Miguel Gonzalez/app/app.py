@@ -92,7 +92,7 @@ abiRegistro = [
 # w3 and contract variables
 w3 = Web3(Web3.WebsocketProvider("ws://127.0.0.1:8545"))
 w3.eth.defaultAccount = w3.eth.accounts[0]
-addressRegistro = "0x0ad94FA2C4665b96ac132dB5B29d6d56d57b7eCb"
+addressRegistro = "0xba51fF67b9089a3Fef592d44ffD4E93Cd209309F"
 registroContract = w3.eth.contract(address=addressRegistro, abi=abiRegistro)
 
 
@@ -126,10 +126,30 @@ def main():
             data.append([event,"A"])
         return render_template("hosts.html", content=data, title="Search Result",action=True)
 
+@app.route("/dnCTRL",methods=['GET','POST'])
+def purchase():
+    if request.method == 'GET':
+        if request.args.get('action') == 'o':
+            data = [request.args.get('domainName')]
+            return render_template("domainAction.html",title="Offer",data=data,action=True)
+        if request.args.get('action') == 'p':
+            data = [request.args.get('domainName')]
+            return render_template("domainAction.html",title="Purchase",data=data,action=False)
+        else:
+            return render_template("search.html")
+    if request.method == 'POST':
+        # Common parammeters
+        domainName = request.form['domainName']
+        ip = request.form['ip']
+        offer = request.form['offer']
+        data = [domainName,ip,offer]
+        return render_template("test.html",data=data)
+    else:
+        return render_template("search.html")
 
 @app.route("/test")
 def test():
-    return render_template("test.html",title="Testing")
+    return render_template("test.html",title='test')
 
 @app.route("/")
 def search():
