@@ -1,7 +1,7 @@
 # Instrucciones de uso
 
 ## Configuración del ambiente
-En este caso se utilizo Flask de python, por lo que se debe de instalar utilizando el siguiente comando:
+En este caso se utilizo Flask de python como servidor web para facilitar la creación del gui, por lo que se debe de instalar utilizando el siguiente comando:
 ```
 pip install flask
 ```
