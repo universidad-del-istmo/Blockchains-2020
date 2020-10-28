@@ -1,23 +1,23 @@
-<!DOCTYPE html>
-
-<html>
-    <head>
+{% extends 'base.html' %} 
+{% block head %}
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <script src="https://cdn.jsdelivr.net/npm/web3@1.2.11/dist/web3.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
         <script src={{ url_for('static', filename="app/js/FileSaver.js") }}></script>
         <script src={{ url_for('static', filename="app/js/app.js") }}></script>
-        <link href={{ url_for('static', filename="dist/css/bootstrap.min.css") }} rel="stylesheet">
         <link href={{ url_for('static', filename="app/css/hosts.css") }} rel="stylesheet">
-        <title>{{title}}</title>
-    </head>
-    <body>
+{% endblock %}
+{% block content %}
         <div class="container">
             <div class="row no-gutter">
                 <div class="container">
-                    <div class="main mx-auto align-items-center py-5">
+                    <div class="align-items-center">
                         <div class="container">
-                            <h2 class="login-heading mb-4">Hosts List</h2>
+                            {% if action %}
+                                <h2 class="login-heading">Search Results</h2>
+                            {% else %}
+                                <h2 class="login-heading">Hosts List</h2>
+                            {% endif %}
                             <table class="table table-dark">
                                 <thead>
                                 <tr>
@@ -54,11 +54,9 @@
                             {% if not action %}
                             <button class='btn btn-lg btn-light' type="button" onclick="save();">Click to Save</button>
                             {% endif %}
-                            <button class='btn btn-lg' type="button" onclick="window.location.href='/'">Home</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
-</html>
+{% endblock %}

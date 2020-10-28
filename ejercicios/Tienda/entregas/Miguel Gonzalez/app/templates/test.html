@@ -1,43 +1,25 @@
-<!DOCTYPE html>
-
-<html>
-    <head>
+{% extends 'base.html' %} 
+{% block head %}
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <script src="https://cdn.jsdelivr.net/npm/web3@1.2.11/dist/web3.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
-        <script src={{ url_for('static', filename="app/js/FileSaver.js") }}></script>
-        <script src={{ url_for('static', filename="app/js/app.js") }}></script>
-        <link href={{ url_for('static', filename="dist/css/bootstrap.min.css") }} rel="stylesheet">
         <link href={{ url_for('static', filename="app/css/hosts.css") }} rel="stylesheet">
-    </head>
-    <body>
+{% endblock %}
+{% block content %}
         <div class="container">
             <div class="row no-gutter">
                 <div class="container">
-                    <div class="main mx-auto align-items-center py-5">
+                    <div class="align-items-center">
                         <div class="container">
-                            <h2 class="login-heading mb-4">Hosts List</h2>
-                            <table class="table table-dark">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Domain Name</th>
-                                    <th scope="col">IP</th>
-                                </tr>
-                                </thead>
-                                <tbody id="registros">
-                                  {% for event in content %}
-                                  <tr><td>{{event['args']['domainName']}} </td><td>{{event['args']['ip']}}</td></tr>
-                                  {% endfor %}
-                                </tbody>
-                            </table>
+                            {% if action %}
+                                <h2 class="login-heading">Make An Offer</h2>
+                            {% else %}
+                                <h2 class="login-heading">Buy A Domain Name</h2>
+                            {% endif %}
                             
-                            <button class='btn btn-lg btn-light' type="button" onclick="save();">Click to Save</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
-        
-        
-</html>
+{% endblock %}

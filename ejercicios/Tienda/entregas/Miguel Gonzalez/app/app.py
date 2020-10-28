@@ -129,11 +129,11 @@ def main():
 
 @app.route("/test")
 def test():
-    return render_template(test.html)
+    return render_template("test.html",title="Testing")
 
 @app.route("/")
 def search():
-    return render_template("search.html")    
+    return render_template("search.html",title="Domain Search")    
 
 if __name__ == "__main__":
     app.run(debug=True)
