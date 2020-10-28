@@ -48,7 +48,7 @@
                                         {% endfor %}
                                     {% else %}
                                         {% for event in content[0] %}
-                                        <tr><td>{{event['args']['domainName']}} </td><td>{{event['args']['ip']}}</td></tr>
+                                        <tr><td>{{event}} </td><td>{{content[0][event]}}</td></tr>
                                         {% endfor %}
                                     {% endif %}
                                     

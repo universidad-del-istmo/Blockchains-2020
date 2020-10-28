@@ -106,7 +106,7 @@ def main():
     if request.method == 'GET':
         eventosTemp = {}
         for event in events:
-            eventosTemp[event['args']['domainName']] = {'domainName':event['args']['domainName'],'ip':event['args']['ip']}
+            eventosTemp[event['args']['domainName']] = event['args']['ip']
         data = [eventosTemp,ofertas]
         return render_template("hosts.html", content=data, title="Hosts",action=False)
     # Realizar la busqueda del dominio
