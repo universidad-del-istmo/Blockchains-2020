@@ -54,6 +54,11 @@
             <input class="form-control" type="number" placeholder="Default input" id="nopuja">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="form-group" id="setPuja-form">
+            <label>Direccion de la cartera</label>
+            <input class="form-control" type="text" placeholder="Default input" id="address">
+            
+        </div>
     </form>
 </div>
 
@@ -64,6 +69,7 @@
         $('.my-form').on('submit', function () {
             var provider = new Web3.providers.HttpProvider("http://localhost:9000");
             var nopuja = document.getElementById("nopuja").value;
+            var address = document.getElementById("address").value;
 
 
 
@@ -556,10 +562,10 @@
 
             EthereumSessionTruffle.setProvider(provider);
             var esTruffleInstance = null;
-            EthereumSessionTruffle.at("0xce415A163376bC08FcEab361De010C2577bF89e1").then(instance => {
+            EthereumSessionTruffle.at("0x24Cb2c350C9Ed370FE2c04b70E2dd143CeF70945").then(instance => {
                 esTruffleInstance = instance;
                 console.log(instance);
-                return instance.cancelarPuja(nopuja, {from: "0x5F1433cAb73f094319427dD21F6dfDab928Ef438"});
+                return instance.cancelarPuja(nopuja, {from: address});
             }).then(alert('Se ha eliminado la puja no.: ' + nopuja));
             
             

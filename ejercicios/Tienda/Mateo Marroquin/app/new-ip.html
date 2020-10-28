@@ -53,6 +53,10 @@
             <label>Nueva ip</label>
             <input class="form-control" type="text" placeholder="Default input" id="ip">
         </div>
+        <div class="form-group" id="setPuja-form">
+            <label>Direccion de la cartera</label>
+            <input class="form-control" type="text" placeholder="Default input" id="address">
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
@@ -64,6 +68,7 @@
         $('.my-form').on('submit', function () {
             var provider = new Web3.providers.HttpProvider("http://localhost:9000");
             var ip = document.getElementById("ip").value;
+            var address = document.getElementById("address").value;
             var EthereumSessionTruffle = TruffleContract({abi: [
                 {
                     "constant": false,
@@ -553,10 +558,10 @@
 
             EthereumSessionTruffle.setProvider(provider);
             var esTruffleInstance = null;
-            EthereumSessionTruffle.at("0xce415A163376bC08FcEab361De010C2577bF89e1").then(instance => {
+            EthereumSessionTruffle.at("0x24Cb2c350C9Ed370FE2c04b70E2dd143CeF70945").then(instance => {
                 esTruffleInstance = instance;
                 console.log(instance);
-                return instance.setIp(ip, {from: "0xA3133a64ad5f04517cB8aB986e76dce218491f60"});
+                return instance.setIp(ip, {from: address});
             }).then(alert('Se a asignado la ip: ' + ip + 'al dominio'));
             
             

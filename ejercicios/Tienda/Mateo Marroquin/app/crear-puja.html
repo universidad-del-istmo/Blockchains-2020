@@ -52,11 +52,16 @@
         <div class="form-group" id="setPuja-form">
             <label>Dominio</label>
             <input class="form-control" type="text" placeholder="Default input" id="dominio">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1"> Monto </label>
             <input class="form-control" type="number" step="1" placeholder="eg. 1000" id="monto">
+        </div>
+        <div class="form-group" id="setPuja-form">
+            <label>Direccion de la cartera</label>
+            <input class="form-control" type="text" placeholder="Default input" id="address">
+            
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
@@ -70,6 +75,7 @@
             var provider = new Web3.providers.HttpProvider("http://localhost:9000");
             var dominio = document.getElementById("dominio").value;
             var monto = document.getElementById("monto").value;
+            var address = document.getElementById("address").value;
 
 
 
@@ -562,13 +568,13 @@
 
             EthereumSessionTruffle.setProvider(provider);
             var esTruffleInstance = null;
-            EthereumSessionTruffle.at("0xce415A163376bC08FcEab361De010C2577bF89e1").then(instance => {
+            EthereumSessionTruffle.at("0x24Cb2c350C9Ed370FE2c04b70E2dd143CeF70945").then(instance => {
                 esTruffleInstance = instance;
                 console.log(instance);
-                return instance.setPuja(dominio, monto, {from: "0x5F1433cAb73f094319427dD21F6dfDab928Ef438"});
+                return instance.setPuja(dominio, monto, {from: address});
             }).then(function() {
                 return esTruffleInstance.getPujas();
-            }).then(result => { console.log(result); res = result.length-1;alert('su numero de puja es ' + res )});
+            }).then(result => { console.log(result); res = result.length;alert('su numero de puja es ' + res )});
     ;
             
             
