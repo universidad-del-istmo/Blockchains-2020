@@ -7,9 +7,9 @@ pip install flask
 ```
 
 ## Configuración de la aplicación
-Para poder utilizar la aplicación se debe de hacer deploy del contrato "Registros.sol" e ingresar la dirección del contrato en ejercicios/Tienda/Entregas/Miguel Gonzalez/app/app.py en el campo "addressRegistro". Si es necesario se puede cambiar la dirección del blockchain modificando el campo bchainAddress
+Para poder utilizar la aplicación se debe de hacer deploy del contrato "Registros.sol" e ingresar la dirección del contrato en ./app/app.py en el campo "addressRegistro". Si es necesario se puede cambiar la dirección del blockchain modificando el campo bchainAddress
 
-Una vez instalado flask y configurado el contro se ejecuta el python script ejercicios/Tienda/Entregas/Miguel Gonzalez/app/app.py y se abre el explorador en http://127.0.0.1:5000/ (Este servidor es montado automaticamente por Flask).
+Una vez instalado flask y configurado el contro se ejecuta el python script ./app/app.py y se abre el explorador en http://127.0.0.1:5000/ (Este servidor es montado automaticamente por Flask).
 
 ## Rutas dentro de la aplicación
 * http://127.0.0.1:5000/: Lleva a la página inicial del sitio para realizar una búsqueda del dominio
