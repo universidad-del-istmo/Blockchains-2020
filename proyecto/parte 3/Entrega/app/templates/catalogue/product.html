@@ -1,0 +1,41 @@
+{% extends 'base.html' %} 
+{% block content %}
+  <!-- Page Heading -->
+  <h1 class="my-4">
+    Bchain Store
+    <small>Products</small>
+  </h1>
+  {% for product in products %}
+    <!-- Project One -->
+    <div class="row">
+        <div class="col-md-6">
+        <a href="#">
+            <img
+            class="img-fluid rounded mb-3 mb-md-0"
+            src="http://placehold.it/600x300"
+            alt=""
+            />
+        </a>
+        </div>
+        <div class="col-md-6">
+        <h3>{{product[1]['descripcion']['nombre']}}</h3>
+        <p>
+            {{product[1]['descripcion']['descripcion']}}
+        </p>
+        <p>Address: {{product[0]['args']['productAddress']}}</p>
+        <p>Product Hash: {{product[0]['args']['productHash']}}</p>
+        <h1>{{product[1]['descripcion']['precio']}} wei</h1>
+        <form action="/buy-product" method="POST">
+          <input type="hidden" id="productAddress" name="productAddress" value={{product[0]['args']['productAddress']}}>
+          <input type="hidden" id="productHash" name="productHash" value={{product[0]['args']['productHash']}}>
+          <input type="hidden" id="value" name="value" value={{product[1]['descripcion']['precio']}}>
+          <button type="submit" class="btn btn-primary"> Comprar</button>
+        </form>
+                  
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <hr />
+  {% endfor %}
+{% endblock %}

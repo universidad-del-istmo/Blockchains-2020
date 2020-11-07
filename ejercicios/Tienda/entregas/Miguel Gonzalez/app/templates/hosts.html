@@ -1,0 +1,81 @@
+{% extends 'base.html' %} 
+{% block head %}
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <script src="https://cdn.jsdelivr.net/npm/web3@1.2.11/dist/web3.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+        <script src={{ url_for('static', filename="app/js/FileSaver.js") }}></script>
+        <script src={{ url_for('static', filename="app/js/app.js") }}></script>
+        <link href={{ url_for('static', filename="app/css/hosts.css") }} rel="stylesheet">
+{% endblock %}
+{% block content %}
+        <div class="container">
+            <div class="row no-gutter">
+                <div class="container">
+                    <div class="align-items-center">
+                        <div class="container">
+                            {% if action %}
+                                <h2 class="login-heading">Search Results</h2>
+                            {% else %}
+                                <h2 class="login-heading">Hosts List</h2>
+                            {% endif %}
+                            <table class="table table-dark">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Domain Name</th>
+                                    <th scope="col">IP</th>
+                                    {% if action %}
+                                    <th scope="col">Action</th>
+                                    {% endif %}
+                                </tr>
+                                </thead>
+                                <tbody id="registros">
+                                    {% if not content[0] %}
+                                    <tr><td>None</td><td>None</td></tr>
+                                    {% endif %}
+                                    {% if action %}
+                                        {% for event in content[0] %}
+                                        <tr>
+                                            <td>{{event[0]['args']['domainName']}} </td>
+                                            <td>{{event[0]['args']['ip']}}</td>
+                                            <td>
+                                                {% if event[1] == "A" %}
+                                                <a class="btn btn-primary btn-sm" href="/dnCTRL?action=p&domainName={{event[0]['args']['domainName']}}"> Purchase </a>
+                                                {% else %}
+                                                <a class="btn btn-primary btn-sm" href="/dnCTRL?action=o&domainName={{event[0]['args']['domainName']}}"> Offer </a>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% for event in content[0] %}
+                                        <tr><td>{{event}} </td><td>{{content[0][event]}}</td></tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                    
+                                </tbody>
+                            </table>
+                            {% if content[1] %}
+                            <h2 class="login-heading">Offers</h2>
+                            <table class="table table-dark">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Domain Name</th>
+                                    <th scope="col">Oferta Address</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for event in content[1] %}
+                                    <tr><td>{{event['args']['domainName']}} </td><td>{{event['args']['ofertaAddress']}}</td></tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% endif %}
+                            {% if not action %}
+                            <button class='btn btn-lg btn-light' type="button" onclick="save();">Click to Save</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
